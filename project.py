@@ -53,6 +53,8 @@ def train(root_directory: str, num_of_epochs: int = 4):
                      'evaluation': len(image_datasets['evaluation'])}
 
     class_names = image_datasets['training'].classes
+    
+    num_of_categories = len(class_names)
 
     common_data["classes"] = class_names
 
@@ -140,7 +142,7 @@ def train(root_directory: str, num_of_epochs: int = 4):
     num_of_features = model.fc.in_features
     # add new linear layer to the end with 5 outputs
     # in this example there is only 5 classes (custom groups)
-    model.fc = nn.Linear(num_of_features, 5)
+    model.fc = nn.Linear(num_of_features, num_of_categories)
 
     model = model.to(device)  # pass to GPU if possible
 
